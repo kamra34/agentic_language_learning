@@ -126,6 +126,9 @@ credentials.json
 # IDE & Editors
 # =============================================================================
 
+# Claude Code
+.claude/
+
 # VSCode
 .vscode/
 !.vscode/settings.json.example
