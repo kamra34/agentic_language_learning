@@ -1,0 +1,23 @@
+# Svenska Lära Backend - Development Dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Include production dependencies
+-r requirements.txt
+
+# Testing
+pytest>=7.4.4
+pytest-asyncio>=0.23.3
+pytest-cov>=4.1.0
+httpx>=0.26.0  # For TestClient
+
+# Code Quality
+ruff>=0.1.14
+mypy>=1.8.0
+
+# Type Stubs
+types-passlib>=1.7.7
+types-python-jose>=3.3.4
+
+# Development Utilities
+ipython>=8.20.0
+rich>=13.7.0

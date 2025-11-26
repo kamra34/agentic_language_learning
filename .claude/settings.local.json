@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial project setup: Svenska Lära language learning platform\n\n- Set up project structure (backend/frontend/docs/temp)\n- Create FastAPI backend scaffold with Python 3.11 configuration\n- Create React frontend scaffold with TypeScript and Vite\n- Add comprehensive .gitignore for Python, Node, IDE files\n- Add ROADMAP.md with detailed development phases\n- Add CLAUDE_INSTRUCTIONS.md with coding guidelines for AI assistants\n- Add README.md with project overview and setup instructions\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

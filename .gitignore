@@ -1,0 +1,241 @@
+# =============================================================================
+# Svenska Lära - Language Learning Platform
+# Comprehensive .gitignore
+# =============================================================================
+
+# =============================================================================
+# Python / Backend
+# =============================================================================
+
+# Virtual Environment
+venv/
+env/
+.venv/
+.env/
+ENV/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
+
+# =============================================================================
+# Node.js / Frontend
+# =============================================================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+frontend/build/
+frontend/dist/
+.next/
+out/
+
+# Testing
+coverage/
+
+# Production
+*.local
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# =============================================================================
+# Environment & Secrets
+# =============================================================================
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+
+# API Keys (explicit patterns)
+**/secrets/
+**/credentials/
+api_keys.json
+secrets.json
+credentials.json
+
+# =============================================================================
+# IDE & Editors
+# =============================================================================
+
+# VSCode
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (PyCharm, WebStorm)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# =============================================================================
+# OS Generated
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+
+# Temporary files and scratch work
+temp/.scratch/*
+!temp/.scratch/.gitkeep
+temp/*.tmp
+temp/*.log
+*.tmp
+*.temp
+
+# Database files (local development)
+*.db
+*.sqlite
+*.sqlite3
+backend/data/*.db
+
+# Logs
+logs/
+*.log
+backend/logs/
+
+# Uploaded files (if any)
+uploads/
+backend/uploads/
+
+# Generated documentation
+docs/_build/
+site/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Alembic (database migrations) - keep migrations, ignore temp
+backend/alembic/versions/__pycache__/
+
+# =============================================================================
+# Docker (for future use)
+# =============================================================================
+
+# Docker volumes
+docker-volumes/
+.docker/
+
+# =============================================================================
+# Miscellaneous
+# =============================================================================
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Large files that shouldn't be in git
+*.mp3
+*.mp4
+*.wav
+*.avi
+*.mov

@@ -1,0 +1,3 @@
+# This file keeps the .scratch folder in git while its contents are ignored
+# Use this folder for temporary experiments, debug scripts, and scratch work
+# Files here are NOT committed to git (see .gitignore)
