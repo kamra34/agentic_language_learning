@@ -14,15 +14,15 @@ export function Layout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Main content */}
-      <main className="flex-1 pb-20 safe-bottom">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Main content - add padding bottom for fixed nav */}
+      <main className="flex-1 overflow-y-auto" style={{ paddingBottom: '5rem' }}>
         <Outlet />
       </main>
 
-      {/* Bottom navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 safe-bottom">
-        <div className="flex justify-around items-center h-16">
+      {/* Bottom navigation - fixed at bottom */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+        <div className="flex justify-around items-center h-16 safe-bottom">
           {navItems.map(({ path, icon: Icon, label }) => {
             const isActive = location.pathname === path;
             return (

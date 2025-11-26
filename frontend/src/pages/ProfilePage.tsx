@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { SkillCard } from '@/components/common/SkillCard';
 import { BookOpen, Pencil, Headphones, MessageSquare, LogOut, Settings } from 'lucide-react';
 
 export function ProfilePage() {
   const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+    navigate('/login', { replace: true });
   };
 
   return (

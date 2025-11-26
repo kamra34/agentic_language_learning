@@ -1,0 +1,19 @@
+{
+  "name": "Svenska Lära",
+  "short_name": "SvenskaLära",
+  "description": "Swedish Language Learning Platform",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
