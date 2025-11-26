@@ -54,6 +54,22 @@ class Settings(BaseSettings):
         """Check if running in development mode."""
         return self.environment == "development"
 
+    @property
+    def async_database_url(self) -> str:
+        """Convert database URL to async format (asyncpg)."""
+        url = self.database_url
+        if url.startswith("postgresql://"):
+            return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return url
+
+    @property
+    def sync_database_url(self) -> str:
+        """Get sync database URL for Alembic migrations."""
+        url = self.database_url
+        if "+asyncpg" in url:
+            return url.replace("postgresql+asyncpg://", "postgresql://", 1)
+        return url
+
 
 @lru_cache
 def get_settings() -> Settings:
