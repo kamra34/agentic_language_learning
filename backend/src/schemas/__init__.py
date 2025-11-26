@@ -9,6 +9,7 @@ from src.schemas.chat import (
     MessageResponse,
 )
 from src.schemas.user import (
+    SettingsOptions,
     TokenRefresh,
     TokenResponse,
     UserCreate,
@@ -37,6 +38,7 @@ __all__ = [
     "UserSkillLevels",
     "TokenResponse",
     "TokenRefresh",
+    "SettingsOptions",
     # Word
     "WordCreate",
     "WordResponse",

@@ -1,5 +1,5 @@
 import api, { tokenStorage } from './api';
-import type { LoginCredentials, RegisterData, TokenResponse, User } from '@/types';
+import type { LoginCredentials, RegisterData, TokenResponse, User, UserUpdate, SettingsOptions } from '@/types';
 
 export const authService = {
   async login(credentials: LoginCredentials): Promise<TokenResponse> {
@@ -16,6 +16,16 @@ export const authService = {
 
   async getCurrentUser(): Promise<User> {
     const response = await api.get<User>('/auth/me');
+    return response.data;
+  },
+
+  async updateUser(data: UserUpdate): Promise<User> {
+    const response = await api.patch<User>('/auth/me', data);
+    return response.data;
+  },
+
+  async getSettingsOptions(): Promise<SettingsOptions> {
+    const response = await api.get<SettingsOptions>('/auth/settings/options');
     return response.data;
   },
 

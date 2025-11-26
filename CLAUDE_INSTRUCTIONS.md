@@ -7,13 +7,17 @@
 ## Project Overview
 
 **Svenska Lära** is a Swedish language learning platform with:
-- React PWA frontend (TypeScript)
-- FastAPI backend (Python 3.11)
-- PostgreSQL database
-- Claude API for AI chatbots
+- React PWA frontend (TypeScript, Vite, Tailwind CSS)
+- FastAPI backend (Python 3.11, async SQLAlchemy)
+- PostgreSQL database (Railway hosted)
+- AI chatbots (user-selectable: Claude or OpenAI)
 
 **Base language:** English
 **Target language:** Swedish
+
+**Ports:**
+- Backend: 5000
+- Frontend: 5500
 
 ---
 
@@ -93,26 +97,30 @@ agentic_language_learning/
 │   │   │   │   └── ...
 │   │   │   └── middleware/      # Request middleware
 │   │   ├── core/                # Core config, security
-│   │   │   ├── config.py        # Settings management
-│   │   │   ├── security.py      # Auth utilities
+│   │   │   ├── config.py        # Settings management (pydantic-settings)
+│   │   │   ├── security.py      # JWT auth, password hashing (bcrypt)
 │   │   │   └── exceptions.py    # Custom exceptions
 │   │   ├── services/            # Business logic
+│   │   │   ├── auth.py          # User auth logic
 │   │   │   ├── vocabulary.py
 │   │   │   ├── chat.py
-│   │   │   ├── claude_client.py
+│   │   │   ├── ai_client.py     # Claude/OpenAI integration
 │   │   │   └── srs.py           # Spaced repetition
-│   │   ├── models/              # SQLAlchemy models
-│   │   │   ├── user.py
-│   │   │   ├── word.py
+│   │   ├── models/              # SQLAlchemy models (async)
+│   │   │   ├── user.py          # User, AIProvider, CEFRLevel
+│   │   │   ├── word.py          # Word, UserWord
+│   │   │   ├── chat.py          # ChatSession, ChatMessage
+│   │   │   ├── writing.py       # WritingSubmission, SpellingPattern
+│   │   │   ├── skill.py         # SkillAssessment
 │   │   │   └── ...
 │   │   ├── schemas/             # Pydantic schemas
 │   │   │   ├── user.py
 │   │   │   ├── word.py
 │   │   │   └── ...
 │   │   └── db/                  # Database config
-│   │       ├── session.py
-│   │       └── init_db.py
+│   │       └── session.py       # Async session factory
 │   ├── alembic/                 # Database migrations
+│   │   └── versions/            # Migration files
 │   ├── tests/
 │   │   ├── unit/
 │   │   └── integration/
@@ -397,6 +405,33 @@ temp/.scratch/scratch_notes.md
 
 ---
 
+## Key Features
+
+### User Settings
+Users can configure preferences in their Profile:
+- **AI Provider**: Choose between Claude (Anthropic) or GPT (OpenAI) for chatbots
+- **Timezone**: Used for scheduling reviews and tracking streaks (default: Europe/Stockholm)
+
+Settings are stored in the `users` table (`preferred_ai_provider`, `timezone` columns).
+
+### CEFR Level Tracking
+Independent skill levels tracked for:
+- Reading (`reading_level`)
+- Writing (`writing_level`)
+- Listening (`listening_level`)
+- Speaking (`speaking_level`)
+
+All default to A1 for new users.
+
+### AI Chatbots (5 types)
+1. **Samtalspartner** (Conversation Partner) - General conversation practice
+2. **Grammatikläraren** (Grammar Teacher) - Grammar explanations and exercises
+3. **Skrivläraren** (Writing Teacher) - Writing feedback and corrections
+4. **Ordläraren** (Word Teacher) - Vocabulary building and word usage
+5. **Översättaren** (Translator) - Translation practice and assistance
+
+---
+
 ## Common Tasks
 
 ### Adding a New API Endpoint
@@ -427,25 +462,34 @@ temp/.scratch/scratch_notes.md
 
 ### Backend (.env)
 ```env
-# Database
-DATABASE_URL=postgresql://user:pass@localhost:5432/svenskalara
+# Database (Railway PostgreSQL)
+DATABASE_URL=postgresql://user:pass@host:port/railway
 
 # Auth
 JWT_SECRET_KEY=your-secret-key
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
 
-# Claude API
-ANTHROPIC_API_KEY=your-api-key
+# AI APIs (at least one required for chatbots)
+ANTHROPIC_API_KEY=sk-ant-your-api-key-here
+OPENAI_API_KEY=sk-proj-your-openai-key-here
 
 # Environment
 ENVIRONMENT=development
 DEBUG=true
+
+# Server
+HOST=0.0.0.0
+PORT=5000
+
+# CORS
+CORS_ORIGINS=http://localhost:5500
 ```
 
 ### Frontend (.env.local)
 ```env
-VITE_API_URL=http://localhost:8000/api/v1
+VITE_API_URL=http://localhost:5000/api/v1
 ```
 
 **NEVER commit .env files!**

@@ -6,7 +6,26 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-from src.models.user import CEFRLevel
+from src.models.user import AIProvider, CEFRLevel
+
+
+# Common timezone options
+TIMEZONE_OPTIONS = [
+    "Europe/Stockholm",
+    "Europe/London",
+    "Europe/Paris",
+    "Europe/Berlin",
+    "Europe/Helsinki",
+    "Europe/Oslo",
+    "Europe/Copenhagen",
+    "America/New_York",
+    "America/Los_Angeles",
+    "America/Chicago",
+    "Asia/Tokyo",
+    "Asia/Shanghai",
+    "Australia/Sydney",
+    "UTC",
+]
 
 
 class UserBase(BaseModel):
@@ -33,6 +52,8 @@ class UserUpdate(BaseModel):
     """Schema for updating user profile."""
 
     display_name: str | None = Field(None, max_length=100)
+    preferred_ai_provider: AIProvider | None = None
+    timezone: str | None = Field(None, max_length=50)
 
 
 class UserResponse(UserBase):
@@ -46,6 +67,8 @@ class UserResponse(UserBase):
     writing_level: CEFRLevel
     listening_level: CEFRLevel
     speaking_level: CEFRLevel
+    preferred_ai_provider: AIProvider
+    timezone: str
     is_active: bool
     created_at: datetime
 
@@ -71,3 +94,10 @@ class TokenRefresh(BaseModel):
     """Schema for refreshing access token."""
 
     refresh_token: str
+
+
+class SettingsOptions(BaseModel):
+    """Schema for available settings options."""
+
+    ai_providers: list[AIProvider] = [AIProvider.CLAUDE, AIProvider.OPENAI]
+    timezones: list[str] = TIMEZONE_OPTIONS

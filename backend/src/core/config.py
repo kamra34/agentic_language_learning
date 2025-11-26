@@ -26,8 +26,9 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 30
     refresh_token_expire_days: int = 7
 
-    # Claude API
-    anthropic_api_key: str
+    # AI APIs (at least one required)
+    anthropic_api_key: str | None = None
+    openai_api_key: str | None = None
 
     # Application
     environment: str = "development"

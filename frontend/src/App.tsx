@@ -8,6 +8,8 @@ import { LoginPage } from '@/pages/LoginPage';
 import { RegisterPage } from '@/pages/RegisterPage';
 import { HomePage } from '@/pages/HomePage';
 import { VocabularyPage } from '@/pages/VocabularyPage';
+import { ReviewPage } from '@/pages/ReviewPage';
+import { BrowseWordsPage } from '@/pages/BrowseWordsPage';
 import { GrammarPage } from '@/pages/GrammarPage';
 import { ChatPage } from '@/pages/ChatPage';
 import { ProfilePage } from '@/pages/ProfilePage';
@@ -44,6 +46,24 @@ function App() {
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Route>
+
+          {/* Protected routes without bottom nav */}
+          <Route
+            path="/vocabulary/review"
+            element={
+              <ProtectedRoute>
+                <ReviewPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/vocabulary/browse"
+            element={
+              <ProtectedRoute>
+                <BrowseWordsPage />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

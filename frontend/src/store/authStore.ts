@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from '@/types';
+import type { User, UserUpdate } from '@/types';
 import authService from '@/services/auth';
 
 interface AuthState {
@@ -14,6 +14,7 @@ interface AuthState {
   logout: () => void;
   fetchUser: () => Promise<void>;
   setUser: (user: User | null) => void;
+  updateUser: (data: UserUpdate) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -70,6 +71,17 @@ export const useAuthStore = create<AuthState>()(
 
       setUser: (user: User | null) => {
         set({ user, isAuthenticated: !!user });
+      },
+
+      updateUser: async (data: UserUpdate) => {
+        set({ isLoading: true });
+        try {
+          const user = await authService.updateUser(data);
+          set({ user, isLoading: false });
+        } catch (error) {
+          set({ isLoading: false });
+          throw error;
+        }
       },
     }),
     {

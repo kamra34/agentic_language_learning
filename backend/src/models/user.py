@@ -22,6 +22,13 @@ class CEFRLevel(str, Enum):
     C2 = "C2"
 
 
+class AIProvider(str, Enum):
+    """Available AI providers for chatbots."""
+
+    CLAUDE = "claude"
+    OPENAI = "openai"
+
+
 class User(Base):
     """User account model."""
 
@@ -37,6 +44,12 @@ class User(Base):
     writing_level: Mapped[str] = mapped_column(String(2), default=CEFRLevel.A1.value)
     listening_level: Mapped[str] = mapped_column(String(2), default=CEFRLevel.A1.value)
     speaking_level: Mapped[str] = mapped_column(String(2), default=CEFRLevel.A1.value)
+
+    # User preferences
+    preferred_ai_provider: Mapped[str] = mapped_column(
+        String(20), default=AIProvider.CLAUDE.value
+    )
+    timezone: Mapped[str] = mapped_column(String(50), default="Europe/Stockholm")
 
     # Account status
     is_active: Mapped[bool] = mapped_column(default=True)

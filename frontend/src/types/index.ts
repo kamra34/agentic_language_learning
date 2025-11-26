@@ -1,5 +1,6 @@
 // User types
 export type CEFRLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+export type AIProvider = 'claude' | 'openai';
 
 export interface User {
   id: number;
@@ -9,8 +10,21 @@ export interface User {
   writing_level: CEFRLevel;
   listening_level: CEFRLevel;
   speaking_level: CEFRLevel;
+  preferred_ai_provider: AIProvider;
+  timezone: string;
   is_active: boolean;
   created_at: string;
+}
+
+export interface UserUpdate {
+  display_name?: string;
+  preferred_ai_provider?: AIProvider;
+  timezone?: string;
+}
+
+export interface SettingsOptions {
+  ai_providers: AIProvider[];
+  timezones: string[];
 }
 
 export interface UserSkillLevels {
@@ -91,6 +105,17 @@ export interface VocabularyStats {
   mastered: number;
   review_needed: number;
   due_for_review: number;
+}
+
+export interface ReviewAnswer {
+  quality: number; // 0-5: 0=blackout, 5=perfect
+}
+
+export interface ReviewResponse {
+  user_word_id: number;
+  new_status: WordStatus;
+  next_review: string;
+  interval_days: number;
 }
 
 // Chat types

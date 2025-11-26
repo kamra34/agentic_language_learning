@@ -14,7 +14,7 @@ from src.core.security import (
     verify_password,
 )
 from src.models.user import User
-from src.schemas.user import TokenResponse, UserCreate
+from src.schemas.user import TokenResponse, UserCreate, UserUpdate
 
 
 async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
@@ -90,3 +90,16 @@ async def refresh_access_token(db: AsyncSession, refresh_token: str) -> TokenRes
         raise CredentialsException("User not found or inactive")
 
     return create_tokens(user)
+
+
+async def update_user(db: AsyncSession, user: User, user_data: UserUpdate) -> User:
+    """Update user profile."""
+    update_data = user_data.model_dump(exclude_unset=True)
+
+    for field, value in update_data.items():
+        if hasattr(user, field):
+            setattr(user, field, value)
+
+    await db.flush()
+    await db.refresh(user)
+    return user
